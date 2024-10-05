@@ -1,0 +1,42 @@
+package com.dinidu.lk.pmt.controller;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
+
+
+public class LoadingScreenController {
+
+
+    @FXML
+    private AnchorPane rootPane;
+
+    @FXML
+    private Circle loadingCircle;
+
+    @FXML
+    private ProgressBar progressBar;
+
+    @FXML
+    private Label loadingLabel;
+
+    public void initialize() {
+
+        new Thread(() -> {
+            try {
+                for (int i = 0; i <= 100; i++) {
+                    final int progress = i;
+                    Thread.sleep(50);
+                    javafx.application.Platform.runLater(() -> {
+                        progressBar.setProgress(progress / 100.0);
+                    });
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    }
+

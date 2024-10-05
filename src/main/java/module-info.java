@@ -4,6 +4,6 @@ module com.dinidu.lk.pmt {
     requires static lombok;
 
 
-    opens com.dinidu.lk.pmt to javafx.fxml;
+    opens com.dinidu.lk.pmt.controller to javafx.fxml;
     exports com.dinidu.lk.pmt;
 }
