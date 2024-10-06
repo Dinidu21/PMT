@@ -8,18 +8,11 @@ import javafx.scene.shape.Circle;
 
 public class LoadingScreenController {
 
-
     @FXML
     private AnchorPane rootPane;
 
     @FXML
-    private Circle loadingCircle;
-
-    @FXML
     private ProgressBar progressBar;
-
-    @FXML
-    private Label loadingLabel;
 
     public void initialize() {
 

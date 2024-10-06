@@ -12,9 +12,18 @@
     -fx-background-radius: 25;
 }
 
+.button:hover {
+    -fx-background-color: #d72c73;
+}
+
 .text-field, .password-field {
     -fx-background-color: #ffffff;
     -fx-border-color: #dddddd;
     -fx-border-radius: 25;
     -fx-padding: 10px;
+}
+
+.error-message {
+    -fx-font-size: 12px;
+    -fx-text-fill: red;
 }
