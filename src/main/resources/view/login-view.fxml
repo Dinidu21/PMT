@@ -23,6 +23,7 @@
 
         <TextField fx:id="usernameField" promptText="Username" style="-fx-background-color: #fff; -fx-background-radius: 25; -fx-padding: 10;" />
         <PasswordField fx:id="passwordField" promptText="Password" style="-fx-background-color: #fff; -fx-background-radius: 25; -fx-padding: 10;" />
+      <Label fx:id="feedbackpw" />
       <ImageView fitHeight="27.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../asserts/icons/lock.gif" />
