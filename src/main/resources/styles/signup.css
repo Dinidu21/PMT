@@ -1,0 +1,65 @@
+/* Background and Card Styles */
+.card {
+    -fx-background-color: rgba(255, 255, 255, 0.85); /* White with light transparency */
+    -fx-background-radius: 20;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 30, 0.5, 0, 5);
+}
+
+/* Header Label Style */
+.header-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-padding: 10;
+    -fx-alignment: center;
+}
+
+/* Input Field Styles */
+.input-field {
+    -fx-background-color: #ffffff; /* Light background for input fields */
+    -fx-border-color: #ddd; /* Light border */
+    -fx-border-radius: 25;
+    -fx-background-radius: 25;
+    -fx-padding: 10;
+    -fx-pref-height: 40px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0.5, 0, 2);
+}
+
+/* Button Styles */
+.register-button {
+    -fx-background-color: #ff318c; /* Pink background */
+    -fx-text-fill: white; /* White text */
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 25;
+    -fx-cursor: hand;
+}
+
+.cancel-button {
+    -fx-background-color: #ccc; /* Light gray background */
+    -fx-text-fill: #333; /* Dark text */
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 25;
+    -fx-cursor: hand;
+}
+
+.register-button:hover {
+    -fx-background-color: #e02d7a; /* Darker pink on hover */
+}
+
+.cancel-button:hover {
+    -fx-background-color: #b3b3b3; /* Darker gray on hover */
+}
+
+/* Login Link Style */
+.login-link {
+    -fx-font-size: 14px;
+    -fx-text-fill: #007BFF;
+    -fx-cursor: hand;
+}
+
+.login-link:hover {
+    -fx-underline: true;
+}

@@ -5,6 +5,7 @@ import com.dinidu.lk.pmt.utils.FeedbackUtil;
 import com.dinidu.lk.pmt.utils.MailUtil; // Import MailUtil
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
@@ -19,6 +20,15 @@ public class ForgetPasswordController extends BaseController {
     public TextField fpid; // Email input field
     @FXML
     public AnchorPane forgetpg; // Main AnchorPane for Forget Password page
+    public AnchorPane otpPg;
+    public Button submitBtn;
+    public TextField otpField1;
+    public TextField otpField2;
+    public TextField otpField3;
+    public TextField otpField4;
+    public TextField otpField5;
+    public TextField otpField6;
+    public Label sendtoId;
     @FXML
     private ProgressIndicator loadingIndicator; // Loading indicator for sending email
     @FXML
@@ -65,18 +75,14 @@ public class ForgetPasswordController extends BaseController {
 
         loadingIndicator.setVisible(true);
 
-        // Generate a random OTP
         int otp = generateOTP();
 
         new Thread(() -> {
             try {
-                // Send the OTP email using MailUtil
                 MailUtil.sendMail(userEmail, otp); // Send the email with OTP
 
-                // Simulate delay for sending email (optional)
                 Thread.sleep(2000);
 
-                // Update UI on the JavaFX Application Thread after sending email
                 javafx.application.Platform.runLater(() -> {
                     loadingIndicator.setVisible(false); // Hide loading indicator
                     FeedbackUtil.showFeedback(feedbackLabel, "OTP sent to your email!", Color.GREEN); // Show success message
@@ -85,23 +91,26 @@ public class ForgetPasswordController extends BaseController {
             } catch (Exception e) {
                 e.printStackTrace();
 
-                // Update UI on the JavaFX Application Thread in case of error
                 javafx.application.Platform.runLater(() -> {
-                    loadingIndicator.setVisible(false); // Hide loading indicator
+                    loadingIndicator.setVisible(false);
                     FeedbackUtil.showFeedback(feedbackLabel, "Failed to send OTP.", Color.RED); // Show error message
                 });
-
             }
         }).start();
     }
 
     private int generateOTP() {
         Random random = new Random();
-        return 100000 + random.nextInt(900000); // Generate a 6-digit OTP
+        return 100000 + random.nextInt(900000); 
     }
 
     @FXML
     private void handleBackToLogin() {
         transitionToScene(forgetpg, "/view/login-view.fxml");
     }
+    
+    
+    
+    
+    
 }

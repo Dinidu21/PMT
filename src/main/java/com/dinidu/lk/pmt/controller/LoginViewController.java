@@ -1,13 +1,11 @@
 package com.dinidu.lk.pmt.controller;
 
+import com.dinidu.lk.pmt.db.DBConnection;
 import com.dinidu.lk.pmt.regex.Regex;
 import com.dinidu.lk.pmt.utils.CustomAlert;
 import com.dinidu.lk.pmt.utils.FeedbackUtil;
-import javafx.animation.FadeTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -15,10 +13,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-
-import java.io.IOException;
+import org.mindrot.jbcrypt.BCrypt;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LoginViewController extends BaseController{
 
@@ -45,12 +44,33 @@ public class LoginViewController extends BaseController{
         } else if (!regex.containsDigit(password)) {
             FeedbackUtil.showFeedback(feedbackpw, "Password must contain at least one digit.", Color.RED);
         } else {
-            CustomAlert.showAlert("CONFIRMATION","Login Successful");
+            validateUser(username, password);
         }
     }
 
+    private void validateUser(String username, String password) {
+        try {
+            Connection connection = DBConnection.getInstance().getConnection();
+            String query = "SELECT * FROM users WHERE username = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, username);
 
+            ResultSet resultSet = preparedStatement.executeQuery();
 
+            if (resultSet.next()) {
+                String hashedPassword = resultSet.getString("password");
+                if (BCrypt.checkpw(password, hashedPassword)) {
+                    CustomAlert.showAlert("CONFIRMATION", "Login Successful");
+                } else {
+                    FeedbackUtil.showFeedback(feedbackpw, "Invalid password.", Color.RED);
+                }
+            } else {
+                FeedbackUtil.showFeedback(feedbackpw, "Username not found.", Color.RED);
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage()).showAndWait();
+        }
+    }
 
     @FXML
     private void handleCancel() {
@@ -61,5 +81,9 @@ public class LoginViewController extends BaseController{
     @FXML
     private void handleForgotPassword(MouseEvent mouseEvent) {
         transitionToScene(loginPg, "/view/forgetpassword/forget_password.fxml");
+    }
+
+    public void onSignUp(ActionEvent actionEvent) {
+        transitionToScene(loginPg, "/view/signUp-view.fxml");
     }
 }

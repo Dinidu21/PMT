@@ -49,5 +49,8 @@
             <Image url="@../asserts/icons/PN.png" />
         </image>
     </ImageView>
-   <ImageView fitHeight="150.0" fitWidth="106.0" layoutX="235.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+   <Button layoutX="731.0" layoutY="32.0" mnemonicParsing="false" onAction="#onSignUp" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 20, 0.5, 0, 5);" text="Sign Up">
+      <font>
+         <Font name="Poppins Black" size="13.0" />
+      </font></Button>
 </AnchorPane>
