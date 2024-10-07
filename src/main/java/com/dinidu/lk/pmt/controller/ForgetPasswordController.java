@@ -12,7 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import java.util.Random;
+import java.security.SecureRandom;
+
 
 public class ForgetPasswordController extends BaseController {
 
@@ -79,7 +80,7 @@ public class ForgetPasswordController extends BaseController {
 
         new Thread(() -> {
             try {
-                MailUtil.sendMail(userEmail, otp); // Send the email with OTP
+                MailUtil.sendMail(userEmail, otp);
 
                 Thread.sleep(2000);
 
@@ -100,17 +101,12 @@ public class ForgetPasswordController extends BaseController {
     }
 
     private int generateOTP() {
-        Random random = new Random();
-        return 100000 + random.nextInt(900000); 
+        SecureRandom random = new SecureRandom();
+        return 100000 + random.nextInt(900000);
     }
 
     @FXML
     private void handleBackToLogin() {
         transitionToScene(forgetpg, "/view/login-view.fxml");
     }
-    
-    
-    
-    
-    
 }

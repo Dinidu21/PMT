@@ -1,6 +1,7 @@
 package com.dinidu.lk.pmt.controller;
 
 import com.dinidu.lk.pmt.db.DBConnection;
+import com.dinidu.lk.pmt.model.UserModel;
 import com.dinidu.lk.pmt.regex.Regex;
 import com.dinidu.lk.pmt.utils.CustomAlert;
 import com.dinidu.lk.pmt.utils.FeedbackUtil;
@@ -44,31 +45,13 @@ public class LoginViewController extends BaseController{
         } else if (!regex.containsDigit(password)) {
             FeedbackUtil.showFeedback(feedbackpw, "Password must contain at least one digit.", Color.RED);
         } else {
-            validateUser(username, password);
-        }
-    }
-
-    private void validateUser(String username, String password) {
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            String query = "SELECT * FROM users WHERE username = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, username);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                String hashedPassword = resultSet.getString("password");
-                if (BCrypt.checkpw(password, hashedPassword)) {
-                    CustomAlert.showAlert("CONFIRMATION", "Login Successful");
-                } else {
-                    FeedbackUtil.showFeedback(feedbackpw, "Invalid password.", Color.RED);
-                }
+            UserModel userModel = new UserModel();
+            boolean isVerified = userModel.verifyUser(username, password);
+            if (isVerified) {
+                CustomAlert.showAlert("Confirmation","Login successful !");
             } else {
-                FeedbackUtil.showFeedback(feedbackpw, "Username not found.", Color.RED);
+                FeedbackUtil.showFeedback(feedbackpw, "Invalid username or password.", Color.RED);
             }
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Database error: " + e.getMessage()).showAndWait();
         }
     }
 

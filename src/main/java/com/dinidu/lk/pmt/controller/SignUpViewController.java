@@ -10,7 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import java.sql.SQLException;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class SignUpViewController extends BaseController {
 
@@ -24,32 +24,25 @@ public class SignUpViewController extends BaseController {
     public Label PassV;
     public Label emailV;
     public Label phoneV;
-    @FXML
     private AnchorPane registerPg;
 
     private final Regex regex = new Regex();
 
     @FXML
     private void handleRegister(ActionEvent event) {
-        // Clear any previous feedback
         clearFeedback();
-
-        // Validate all fields
         boolean isValid = true;
 
-        // Validate username
         if (usernameField.getText().isEmpty()) {
             FeedbackUtil.showFeedback(UsernameV, "Username cannot be empty.", Color.RED);
             isValid = false;
         }
 
-        // Validate email
         if (!regex.isEmailValid(emailField.getText())) {
             FeedbackUtil.showFeedback(emailV, "Invalid email address.", Color.RED);
             isValid = false;
         }
 
-        // Validate password
         String password = passwordField.getText();
         if (!regex.isMinLength(password)) {
             FeedbackUtil.showFeedback(PassV, "Password must be at least 8 characters long.", Color.RED);
@@ -69,42 +62,41 @@ public class SignUpViewController extends BaseController {
             FeedbackUtil.showFeedback(phoneV, "Invalid phone number. It must contain 10 digits.", Color.RED);
             isValid = false;
         }
-        // If all fields are valid, navigate to the dashboard
+
         if (isValid) {
-                UserDTO userDTO = new UserDTO(
-                        usernameField.getText(),
-                        passwordField.getText(),
-                        emailField.getText(),
-                        phoneField.getText()
-                );
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
 
-                UserModel userModel = new UserModel();
-                try {
-                    boolean isSaved = userModel.saveUser(userDTO);
-                    if (isSaved) {
-                        CustomAlert.showAlert("CONFIRMATION","User Has been saved Successfully !");
-                        clearcontent();
-                    } else {
-                        new Alert(Alert.AlertType.ERROR, "Failed to save user!").show();
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    new Alert(Alert.AlertType.ERROR, "Error occurred while saving user: " + e.getMessage()).show();
+            UserDTO userDTO = new UserDTO(
+                    usernameField.getText(),
+                    hashedPassword,
+                    emailField.getText(),
+                    phoneField.getText()
+            );
+
+            UserModel userModel = new UserModel();
+            try {
+                boolean isSaved = userModel.saveUser(userDTO);
+                if (isSaved) {
+                    CustomAlert.showAlert("CONFIRMATION", "User has been saved successfully!");
+                    clearContent();
+                } else {
+                    showError("Failed to save user! Please try again.");
                 }
-
+            } catch (Exception e) {
+                showError("An unexpected error occurred: " + e.getMessage());
+            }
         }
-
     }
 
     @FXML
     private void handleCancel(ActionEvent event) {
-        clearcontent();
+        clearContent();
         clearFeedback();
     }
 
     @FXML
     private void handleLogin(javafx.scene.input.MouseEvent event) {
-        transitionToScene(registerPg, "/view/login-view.fxml");
+
     }
 
     private void clearFeedback() {
@@ -113,10 +105,15 @@ public class SignUpViewController extends BaseController {
         emailV.setText("");
         phoneV.setText("");
     }
-    private void clearcontent(){
+
+    private void clearContent() {
         usernameField.clear();
         passwordField.clear();
         emailField.clear();
         phoneField.clear();
+    }
+
+    private void showError(String message) {
+        new Alert(Alert.AlertType.ERROR, message).showAndWait();
     }
 }
