@@ -4,6 +4,7 @@ import com.dinidu.lk.pmt.dto.UserDTO;
 import com.dinidu.lk.pmt.model.UserModel;
 import com.dinidu.lk.pmt.regex.Regex;
 import com.dinidu.lk.pmt.utils.CustomAlert;
+import com.dinidu.lk.pmt.utils.CustomErrorAlert;
 import com.dinidu.lk.pmt.utils.FeedbackUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -111,6 +112,6 @@ public class SignUpViewController extends BaseController {
     }
 
     private void showError(String message) {
-        new Alert(Alert.AlertType.ERROR, message).showAndWait();
+        CustomErrorAlert.showAlert("ERROR",message);
     }
 }

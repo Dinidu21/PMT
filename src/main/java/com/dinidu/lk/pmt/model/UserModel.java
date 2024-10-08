@@ -2,6 +2,7 @@ package com.dinidu.lk.pmt.model;
 
 import com.dinidu.lk.pmt.db.DBConnection;
 import com.dinidu.lk.pmt.dto.UserDTO;
+import com.dinidu.lk.pmt.utils.CustomErrorAlert;
 import org.mindrot.jbcrypt.BCrypt;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,6 +27,7 @@ public class UserModel {
             return result > 0;
         } catch (SQLException e) {
             System.out.println("Error saving user: " + e.getMessage());
+            CustomErrorAlert.showAlert("ERROR","Error saving user: " + e.getMessage());
         } finally {
             // closeResources(connection, pst, null);
         }
@@ -57,6 +59,7 @@ public class UserModel {
             }
         } catch (SQLException e) {
             System.out.println("Error verifying user: " + e.getMessage());
+            CustomErrorAlert.showAlert("ERROR","Error verifying user: " + e.getMessage());
         } finally {
             // closeResources(connection, pst, rs);
         }
