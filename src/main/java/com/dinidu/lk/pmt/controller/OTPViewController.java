@@ -1,5 +1,7 @@
 package com.dinidu.lk.pmt.controller;
 
+import com.dinidu.lk.pmt.utils.CustomAlert;
+import com.dinidu.lk.pmt.utils.CustomErrorAlert;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,6 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import lombok.Setter;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -38,6 +42,12 @@ public class OTPViewController implements Initializable {
 
     @FXML
     public Button submitBtn;
+
+    private int generatedOTP;
+
+    public void setGeneratedOTP(int generatedOTP) {
+        this.generatedOTP = generatedOTP;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -77,6 +87,17 @@ public class OTPViewController implements Initializable {
     }
 
     public void handleSubmitOTP(ActionEvent actionEvent) {
+        String enteredOTP = otpField1.getText() + otpField2.getText() + otpField3.getText() +
+                otpField4.getText() + otpField5.getText() + otpField6.getText();
+        if (enteredOTP.length() != 6) {
+           CustomErrorAlert.showAlert("Error", "Please enter the complete OTP.");
+            return;
+        }
 
+        if (Integer.parseInt(enteredOTP) == generatedOTP) {
+            CustomAlert.showAlert("Confirmation", "OTP Verified! Password reset can proceed.");
+        } else {
+            CustomErrorAlert.showAlert("Error", "Invalid OTP. Please try again.");
+        }
     }
 }

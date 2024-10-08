@@ -2,9 +2,11 @@ package com.dinidu.lk.pmt.controller;
 
 import com.dinidu.lk.pmt.model.UserModel;
 import com.dinidu.lk.pmt.regex.Regex;
+import com.dinidu.lk.pmt.utils.CustomErrorAlert;
 import com.dinidu.lk.pmt.utils.FeedbackUtil;
 import com.dinidu.lk.pmt.utils.MailUtil;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -89,14 +91,15 @@ public class ForgetPasswordController extends BaseController {
 
                 Thread.sleep(2000);
 
-                javafx.application.Platform.runLater(() -> {
+                Platform.runLater(() -> {
                     loadingIndicator.setVisible(false);
                     FeedbackUtil.showFeedback(feedbackLabel, "OTP sent to your email!", Color.GREEN);
-                    loadOTPView();
+                    loadOTPView(otp);
+                    System.out.println("Your otp is : "+otp);
                 });
             } catch (Exception e) {
                 e.printStackTrace();
-                javafx.application.Platform.runLater(() -> {
+                Platform.runLater(() -> {
                     loadingIndicator.setVisible(false);
                     FeedbackUtil.showFeedback(feedbackLabel, "Failed to send OTP.", Color.RED);
                 });
@@ -114,12 +117,15 @@ public class ForgetPasswordController extends BaseController {
         transitionToScene(forgetpg, "/view/login-view.fxml");
     }
 
-    private void loadOTPView() {
+    private void loadOTPView(int otp) {
         try {
             Stage otpStage = new Stage();
             otpStage.initStyle(StageStyle.TRANSPARENT);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/forgetpassword/otpEnter-view.fxml"));
+            Parent root = loader.load();
+            OTPViewController otpController = loader.getController();
+            otpController.setGeneratedOTP(otp);
 
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/forgetpassword/otpEnter-view.fxml")));
             root.setOnMousePressed(mouseEvent -> {
                 xOffset = mouseEvent.getSceneX();
                 yOffset = mouseEvent.getSceneY();
@@ -139,7 +145,7 @@ public class ForgetPasswordController extends BaseController {
             currentStage.hide();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            CustomErrorAlert.showAlert("ERROR","Error : "+e);
         }
     }
 }
