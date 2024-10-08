@@ -65,6 +65,28 @@ public class UserModel {
         }
         return "ERROR";
     }
+    public boolean isEmailRegistered(String email) {
+        Connection connection = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        try {
+            connection = DBConnection.getInstance().getConnection();
+            String sql = "SELECT COUNT(*) FROM users WHERE email = ?";
+            pst = connection.prepareStatement(sql);
+            pst.setString(1, email);
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Returns true if email is found
+            }
+        } catch (SQLException e) {
+            System.out.println("Error checking email registration: " + e.getMessage());
+            CustomErrorAlert.showAlert("ERROR", "Error checking email registration: " + e.getMessage());
+        } finally {
+            // closeResources(connection, pst, rs);
+        }
+        return false;
+    }
 
     private void closeResources(Connection connection, PreparedStatement pst, ResultSet rs) {
         try {

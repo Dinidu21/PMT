@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="669.0" prefWidth="1010.0" style="-fx-background-color: white;" stylesheets="@../styles/signup.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dinidu.lk.pmt.controller.DashboardViewController">
+<AnchorPane fx:id="dashboardpg"
+            prefHeight="669.0" prefWidth="1010.0"
+            style="-fx-background-color: white;"
+            stylesheets="@../styles/dashboard.css"
+            xmlns="http://javafx.com/javafx/22"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.dinidu.lk.pmt.controller.DashboardViewController">
    <children>
       <Button layoutX="283.0" layoutY="33.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="444.0" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 20, 0.5, 0, 5); -fx-background-radius: 30;" text="Dashboard">
          <font>
             <Font name="Poppins Black" size="48.0" />
+         </font>
+      </Button>
+      <ButtonBar layoutX="244.0" layoutY="274.0" prefHeight="40.0" prefWidth="200.0" />
+      <Button layoutX="860.0" layoutY="97.0" minWidth="51.0" mnemonicParsing="false" onAction="#logoutAction" prefHeight="51.0" prefWidth="136.0" text="Logout">
+         <font>
+            <Font name="Poppins Regular" size="24.0" />
          </font>
       </Button>
    </children>

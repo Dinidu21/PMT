@@ -43,6 +43,7 @@ public class LoginViewController extends BaseController{
             switch (result) {
                 case "SUCCESS":
                     CustomAlert.showAlert("Confirmation", "Login successful!");
+                    transitionToScene(loginPg,"/view/dasboard-view.fxml");
                     break;
                 case "INVALID_USERNAME":
                     FeedbackUtil.showFeedback(feedbackpw, "Invalid username. Please check your username.", Color.RED);

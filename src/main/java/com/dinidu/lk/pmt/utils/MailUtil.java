@@ -1,7 +1,6 @@
 package com.dinidu.lk.pmt.utils;
 
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -10,7 +9,6 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class MailUtil {
-
     private static String myAccountEmail;
     private static String appPassword;
 
@@ -23,8 +21,7 @@ public class MailUtil {
         try (InputStream input = MailUtil.class.getClassLoader().getResourceAsStream("env.properties")) {
             if (input == null) {
                 Platform.runLater(() ->
-                        new Alert(Alert.AlertType.ERROR, "Error: Unable to find env.properties file.").showAndWait()
-                );
+                        CustomErrorAlert.showAlert("ERROR","Error: Unable to find env.properties file."));
                 return;
             }
             properties.load(input);
@@ -33,21 +30,18 @@ public class MailUtil {
 
             if (myAccountEmail == null || myAccountEmail.isEmpty() || appPassword == null || appPassword.isEmpty()) {
                 Platform.runLater(() ->
-                        new Alert(Alert.AlertType.ERROR, "Error: Missing or empty email credentials in env.properties file.").showAndWait()
-                );
+                        CustomErrorAlert.showAlert("ERROR","Missing or empty email credentials in env.properties file."));
             }
         } catch (IOException e) {
             Platform.runLater(() ->
-                    new Alert(Alert.AlertType.ERROR, "Error reading env.properties file: " + e.getMessage()).showAndWait()
-            );
+                    CustomErrorAlert.showAlert("ERROR","Error reading env.properties file: " + e.getMessage()));
         }
     }
 
     public static void sendMail(String recipient, int otp) {
         if (myAccountEmail == null || myAccountEmail.isEmpty() || appPassword == null || appPassword.isEmpty()) {
             Platform.runLater(() ->
-                    new Alert(Alert.AlertType.ERROR, "Email credentials are not configured properly.").showAndWait()
-            );
+                    CustomErrorAlert.showAlert("ERROR","Email credentials are not configured properly."));
             return;
         }
 
@@ -72,15 +66,13 @@ public class MailUtil {
                 Transport.send(message);
                 System.out.println("Email sent successfully");
                 Platform.runLater(() ->
-                        new Alert(Alert.AlertType.CONFIRMATION, "Email (OTP) sent successfully").show()
-                );
+                        CustomAlert.showAlert("CONFIRMATION","Email (OTP) sent successfully"));
             } else {
                 throw new MessagingException("Failed to create email message.");
             }
         } catch (Exception ex) {
             Platform.runLater(() ->
-                    new Alert(Alert.AlertType.ERROR, "Failed to send email: " + ex.getMessage()).show()
-            );
+                    CustomErrorAlert.showAlert("ERROR","Failed to send email: " + ex.getMessage()));
             ex.printStackTrace();
         }
     }
@@ -111,10 +103,9 @@ public class MailUtil {
             return message;
         } catch (Exception e) {
             Platform.runLater(() ->
-                    new Alert(Alert.AlertType.ERROR, "Failed to prepare email message: " + e.getMessage()).show()
-            );
+                    CustomErrorAlert.showAlert("ERROR","Failed to prepare email message: " + e.getMessage()));
             e.printStackTrace();
         }
-        return null; // Return null if there was an error
+        return null;
     }
 }
