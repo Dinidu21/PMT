@@ -43,11 +43,8 @@ public class OTPViewController implements Initializable {
     @FXML
     public Button submitBtn;
 
+    @Setter
     private int generatedOTP;
-
-    public void setGeneratedOTP(int generatedOTP) {
-        this.generatedOTP = generatedOTP;
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
