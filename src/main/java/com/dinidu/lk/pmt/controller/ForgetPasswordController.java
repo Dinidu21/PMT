@@ -1,5 +1,6 @@
 package com.dinidu.lk.pmt.controller;
 
+import com.dinidu.lk.pmt.model.UserModel;
 import com.dinidu.lk.pmt.regex.Regex;
 import com.dinidu.lk.pmt.utils.FeedbackUtil;
 import com.dinidu.lk.pmt.utils.MailUtil;
@@ -67,8 +68,16 @@ public class ForgetPasswordController extends BaseController {
         if (userEmail == null || userEmail.isEmpty()) {
             FeedbackUtil.showFeedback(feedbackLabel, "Please enter your Email.", Color.RED);
             return;
-        } else if (!rg.isEmailValid(userEmail)) {
+        }
+
+        if (!rg.isEmailValid(userEmail)) {
             FeedbackUtil.showFeedback(feedbackLabel, "Please Enter Valid Email", Color.RED);
+            return;
+        }
+
+        UserModel userModel = new UserModel();
+        if (!userModel.isEmailRegistered(userEmail)) {
+            FeedbackUtil.showFeedback(feedbackLabel, "Email is not registered.", Color.RED);
             return;
         }
 
@@ -76,7 +85,7 @@ public class ForgetPasswordController extends BaseController {
         int otp = generateOTP();
         new Thread(() -> {
             try {
-                //MailUtil.sendMail(userEmail, otp);
+                // MailUtil.sendMail(userEmail, otp);
 
                 Thread.sleep(2000);
 
