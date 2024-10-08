@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import org.mindrot.jbcrypt.BCrypt;
 
 public class SignUpViewController extends BaseController {
 
@@ -24,7 +23,7 @@ public class SignUpViewController extends BaseController {
     public Label PassV;
     public Label emailV;
     public Label phoneV;
-    private AnchorPane registerPg;
+    public AnchorPane registerPg;
 
     private final Regex regex = new Regex();
 
@@ -64,11 +63,9 @@ public class SignUpViewController extends BaseController {
         }
 
         if (isValid) {
-            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
-
             UserDTO userDTO = new UserDTO(
                     usernameField.getText(),
-                    hashedPassword,
+                    password,
                     emailField.getText(),
                     phoneField.getText()
             );
@@ -95,8 +92,8 @@ public class SignUpViewController extends BaseController {
     }
 
     @FXML
-    private void handleLogin(javafx.scene.input.MouseEvent event) {
-
+    private void handleLogin() {
+        transitionToScene(registerPg, "/view/login-view.fxml");
     }
 
     private void clearFeedback() {

@@ -1,34 +1,25 @@
 package com.dinidu.lk.pmt.controller;
 
-import com.dinidu.lk.pmt.db.DBConnection;
 import com.dinidu.lk.pmt.model.UserModel;
 import com.dinidu.lk.pmt.regex.Regex;
 import com.dinidu.lk.pmt.utils.CustomAlert;
 import com.dinidu.lk.pmt.utils.FeedbackUtil;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import org.mindrot.jbcrypt.BCrypt;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class LoginViewController extends BaseController{
 
     @FXML
-    public AnchorPane loginPg; // Main AnchorPane for login page
+    public AnchorPane loginPg;
     public Label feedbackpw;
     @FXML
-    private TextField usernameField; // Username input field
+    private TextField usernameField;
     @FXML
-    private PasswordField passwordField; // Password input field
+    private PasswordField passwordField;
 
     @FXML
     private void handleLogin() {
@@ -46,11 +37,24 @@ public class LoginViewController extends BaseController{
             FeedbackUtil.showFeedback(feedbackpw, "Password must contain at least one digit.", Color.RED);
         } else {
             UserModel userModel = new UserModel();
-            boolean isVerified = userModel.verifyUser(username, password);
-            if (isVerified) {
-                CustomAlert.showAlert("Confirmation","Login successful !");
-            } else {
-                FeedbackUtil.showFeedback(feedbackpw, "Invalid username or password.", Color.RED);
+            String result = userModel.verifyUser(username, password);
+
+            switch (result) {
+                case "SUCCESS":
+                    CustomAlert.showAlert("Confirmation", "Login successful!");
+                    break;
+                case "INVALID_USERNAME":
+                    FeedbackUtil.showFeedback(feedbackpw, "Invalid username. Please check your username.", Color.RED);
+                    break;
+                case "INVALID_PASSWORD":
+                    FeedbackUtil.showFeedback(feedbackpw, "Incorrect password. Please try again.", Color.RED);
+                    break;
+                case "ERROR":
+                    FeedbackUtil.showFeedback(feedbackpw, "An error occurred. Please try again later.", Color.RED);
+                    break;
+                default:
+                    FeedbackUtil.showFeedback(feedbackpw, "An unknown error occurred.", Color.RED);
+                    break;
             }
         }
     }
@@ -62,11 +66,11 @@ public class LoginViewController extends BaseController{
     }
 
     @FXML
-    private void handleForgotPassword(MouseEvent mouseEvent) {
+    private void handleForgotPassword() {
         transitionToScene(loginPg, "/view/forgetpassword/forget_password.fxml");
     }
 
-    public void onSignUp(ActionEvent actionEvent) {
+    public void onSignUp() {
         transitionToScene(loginPg, "/view/signUp-view.fxml");
     }
 }

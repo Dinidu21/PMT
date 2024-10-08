@@ -2,7 +2,7 @@ package com.dinidu.lk.pmt.controller;
 
 import com.dinidu.lk.pmt.regex.Regex;
 import com.dinidu.lk.pmt.utils.FeedbackUtil;
-import com.dinidu.lk.pmt.utils.MailUtil; // Import MailUtil
+import com.dinidu.lk.pmt.utils.MailUtil;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,14 +13,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import java.security.SecureRandom;
-
-
 public class ForgetPasswordController extends BaseController {
-
     @FXML
-    public TextField fpid; // Email input field
+    public TextField fpid;
     @FXML
-    public AnchorPane forgetpg; // Main AnchorPane for Forget Password page
+    public AnchorPane forgetpg;
     public AnchorPane otpPg;
     public Button submitBtn;
     public TextField otpField1;
@@ -31,9 +28,9 @@ public class ForgetPasswordController extends BaseController {
     public TextField otpField6;
     public Label sendtoId;
     @FXML
-    private ProgressIndicator loadingIndicator; // Loading indicator for sending email
+    private ProgressIndicator loadingIndicator;
     @FXML
-    private Label feedbackLabel; // Label for feedback messages
+    private Label feedbackLabel;
 
     @FXML
     public void initialize() {
@@ -85,8 +82,8 @@ public class ForgetPasswordController extends BaseController {
                 Thread.sleep(2000);
 
                 javafx.application.Platform.runLater(() -> {
-                    loadingIndicator.setVisible(false); // Hide loading indicator
-                    FeedbackUtil.showFeedback(feedbackLabel, "OTP sent to your email!", Color.GREEN); // Show success message
+                    loadingIndicator.setVisible(false);
+                    FeedbackUtil.showFeedback(feedbackLabel, "OTP sent to your email!", Color.GREEN);
                 });
 
             } catch (Exception e) {
@@ -94,7 +91,7 @@ public class ForgetPasswordController extends BaseController {
 
                 javafx.application.Platform.runLater(() -> {
                     loadingIndicator.setVisible(false);
-                    FeedbackUtil.showFeedback(feedbackLabel, "Failed to send OTP.", Color.RED); // Show error message
+                    FeedbackUtil.showFeedback(feedbackLabel, "Failed to send OTP.", Color.RED);
                 });
             }
         }).start();
