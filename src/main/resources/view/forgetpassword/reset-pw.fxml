@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="pwPage" layoutX="197.0" layoutY="86.0" prefHeight="288.0" prefWidth="345.0" styleClass="container-pane" stylesheets="@../../styles/resetpw.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dinidu.lk.pmt.controller.ResetPwViewController">
+
+    <VBox alignment="CENTER" layoutX="20" layoutY="50" spacing="15">
+        <!-- Title -->
+        <Label styleClass="header-label" text="Reset Password" />
+
+        <!-- New Password Field with an eye icon to toggle visibility -->
+        <VBox spacing="5">
+            <Label styleClass="form-label" text="New Password:" />
+            <TextField fx:id="newPasswordField" prefHeight="42.0" prefWidth="362.0" promptText="Enter new password" styleClass="input-field" />
+        </VBox>
+
+        <!-- Confirm Password Field with an eye icon to toggle visibility -->
+        <VBox spacing="5">
+            <Label styleClass="form-label" text="Confirm Password:" />
+            <TextField fx:id="confirmPasswordField" prefHeight="42.0" prefWidth="230.0" promptText="Re-enter new password" styleClass="input-field" />
+        </VBox>
+
+        <!-- Feedback for Errors -->
+        <Label fx:id="passwordFeedback" styleClass="error-message" text="" />
+
+        <!-- Reset Button -->
+        <Button fx:id="resetPasswordBtn" prefHeight="44.0" prefWidth="193.0" styleClass="submit-button" text="Reset Password" />
+    </VBox>
+</AnchorPane>
