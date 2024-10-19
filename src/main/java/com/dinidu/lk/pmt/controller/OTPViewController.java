@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -23,6 +24,8 @@ import java.util.ResourceBundle;
 public class OTPViewController extends BaseController implements Initializable {
     private static double xOffset = 0;
     private static double yOffset = 0;
+    private static final int MAX_ATTEMPTS = 3;  // Maximum allowed attempts
+    private int attemptCounter = 0;  // Track the number of invalid OTP attempts
 
     @FXML
     public AnchorPane otpPg;
@@ -101,34 +104,58 @@ public class OTPViewController extends BaseController implements Initializable {
 
         if (Integer.parseInt(enteredOTP) == generatedOTP) {
             CustomAlert.showAlert("Confirmation", "OTP Verified! Password reset can proceed.");
-            try {
-                Stage otpStage = new Stage();
-                otpStage.initStyle(StageStyle.TRANSPARENT);
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/forgetpassword/reset-pw.fxml"));
-                Parent root = loader.load();
-                root.setOnMousePressed(mouseEvent -> {
-                    xOffset = mouseEvent.getSceneX();
-                    yOffset = mouseEvent.getSceneY();
-                });
-                root.setOnMouseDragged(mouseEvent -> {
-                    otpStage.setX(mouseEvent.getScreenX() - xOffset);
-                    otpStage.setY(mouseEvent.getScreenY() - yOffset);
-                });
-
-                Scene scene = new Scene(root);
-                scene.setFill(Color.TRANSPARENT);
-                otpStage.setScene(scene);
-                otpStage.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResourceAsStream("/asserts/icons/PN.png"))));
-                otpStage.centerOnScreen();
-                otpStage.show();
-                Stage currentStage = (Stage) otpPg.getScene().getWindow();
-                currentStage.hide();
-
-            } catch (Exception e) {
-                CustomErrorAlert.showAlert("ERROR","Error : "+e);
-            }
+            loadPasswordResetScreen();  // Call a method to load the next screen for password reset
         } else {
-            CustomErrorAlert.showAlert("Error", "Invalid OTP. Please try again.");
+            attemptCounter++;  // Increment the failed attempt counter
+            if (attemptCounter >= MAX_ATTEMPTS) {
+                CustomErrorAlert.showAlert("Error", "Invalid OTP. Too many attempts. Please try again later.");
+                redirectToLogin();  // Redirect to the login page after max attempts
+            } else {
+                CustomErrorAlert.showAlert("Error", "Invalid OTP. Please try again.");
+            }
+        }
+    }
+
+    private void redirectToLogin() {
+        try {
+            Stage currentStage = (Stage) otpPg.getScene().getWindow();
+            currentStage.close();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login-view.fxml"));
+            Parent root = loader.load();
+            Stage loginStage = new Stage();
+            loginStage.setScene(new Scene(root));
+            loginStage.show();
+        } catch (Exception e) {
+            CustomErrorAlert.showAlert("ERROR", "Error while redirecting to login: " + e.getMessage());
+        }
+    }
+
+    private void loadPasswordResetScreen() {
+        // Method to load password reset screen after successful OTP verification
+        try {
+            Stage otpStage = new Stage();
+            otpStage.initStyle(StageStyle.TRANSPARENT);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/forgetpassword/reset-pw.fxml"));
+            Parent root = loader.load();
+            root.setOnMousePressed(mouseEvent -> {
+                xOffset = mouseEvent.getSceneX();
+                yOffset = mouseEvent.getSceneY();
+            });
+            root.setOnMouseDragged(mouseEvent -> {
+                otpStage.setX(mouseEvent.getScreenX() - xOffset);
+                otpStage.setY(mouseEvent.getScreenY() - yOffset);
+            });
+
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+            otpStage.setScene(scene);
+            otpStage.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResourceAsStream("/asserts/icons/PN.png"))));
+            otpStage.centerOnScreen();
+            otpStage.show();
+            Stage currentStage = (Stage) otpPg.getScene().getWindow();
+            currentStage.hide();
+        } catch (Exception e) {
+            CustomErrorAlert.showAlert("ERROR", "Error while loading password reset screen: " + e.getMessage());
         }
     }
 }
