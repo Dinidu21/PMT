@@ -2,6 +2,7 @@ package com.dinidu.lk.pmt.model;
 
 import com.dinidu.lk.pmt.db.DBConnection;
 import com.dinidu.lk.pmt.dto.UserDTO;
+import com.dinidu.lk.pmt.utils.CrudUtil;
 import com.dinidu.lk.pmt.utils.CustomErrorAlert;
 import org.mindrot.jbcrypt.BCrypt;
 import java.sql.Connection;
@@ -10,21 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 public class UserModel {
     public boolean saveUser(UserDTO userDTO) {
-        Connection connection = null;
-        PreparedStatement pst = null;
         try {
-            connection = DBConnection.getInstance().getConnection();
-            String sql = "INSERT INTO users (username, password, email, phoneNumber) VALUES (?, ?, ?, ?)";
-            pst = connection.prepareStatement(sql);
-
             String hashedPassword = BCrypt.hashpw(userDTO.getPassword(), BCrypt.gensalt(12));
-            pst.setObject(1, userDTO.getUsername());
-            pst.setObject(2, hashedPassword);
-            pst.setObject(3, userDTO.getEmail());
-            pst.setObject(4, userDTO.getPhoneNumber());
-
-            int result = pst.executeUpdate();
-            return result > 0;
+            return CrudUtil.execute("INSERT INTO users (username, password, email, phoneNumber) VALUES (?, ?, ?, ?)",
+                    userDTO.getUsername(),
+                    hashedPassword,
+                    userDTO.getEmail(),
+                    userDTO.getPhoneNumber());
         } catch (SQLException e) {
             System.out.println("Error saving user: " + e.getMessage());
             CustomErrorAlert.showAlert("ERROR","Error saving user: " + e.getMessage());
