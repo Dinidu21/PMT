@@ -4,17 +4,25 @@ import com.dinidu.lk.pmt.utils.CustomAlert;
 import com.dinidu.lk.pmt.utils.CustomErrorAlert;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import lombok.Setter;
-
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class OTPViewController implements Initializable {
+public class OTPViewController extends BaseController implements Initializable {
+    private static double xOffset = 0;
+    private static double yOffset = 0;
 
     @FXML
     public AnchorPane otpPg;
@@ -87,12 +95,38 @@ public class OTPViewController implements Initializable {
         String enteredOTP = otpField1.getText() + otpField2.getText() + otpField3.getText() +
                 otpField4.getText() + otpField5.getText() + otpField6.getText();
         if (enteredOTP.length() != 6) {
-           CustomErrorAlert.showAlert("Error", "Please enter the complete OTP.");
+            CustomErrorAlert.showAlert("Error", "Please enter the complete OTP.");
             return;
         }
 
         if (Integer.parseInt(enteredOTP) == generatedOTP) {
             CustomAlert.showAlert("Confirmation", "OTP Verified! Password reset can proceed.");
+            try {
+                Stage otpStage = new Stage();
+                otpStage.initStyle(StageStyle.TRANSPARENT);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/forgetpassword/reset-pw.fxml"));
+                Parent root = loader.load();
+                root.setOnMousePressed(mouseEvent -> {
+                    xOffset = mouseEvent.getSceneX();
+                    yOffset = mouseEvent.getSceneY();
+                });
+                root.setOnMouseDragged(mouseEvent -> {
+                    otpStage.setX(mouseEvent.getScreenX() - xOffset);
+                    otpStage.setY(mouseEvent.getScreenY() - yOffset);
+                });
+
+                Scene scene = new Scene(root);
+                scene.setFill(Color.TRANSPARENT);
+                otpStage.setScene(scene);
+                otpStage.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResourceAsStream("/asserts/icons/PN.png"))));
+                otpStage.centerOnScreen();
+                otpStage.show();
+                Stage currentStage = (Stage) otpPg.getScene().getWindow();
+                currentStage.hide();
+
+            } catch (Exception e) {
+                CustomErrorAlert.showAlert("ERROR","Error : "+e);
+            }
         } else {
             CustomErrorAlert.showAlert("Error", "Invalid OTP. Please try again.");
         }
