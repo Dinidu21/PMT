@@ -26,6 +26,9 @@ public class Regex {
     public boolean isMinLength(String password) {
         return password.length() >= 8;
     }
+    public boolean containsSpecialChar(String password) {
+        return Pattern.compile("[^a-zA-Z0-9]").matcher(password).find();
+    }
 
     public boolean isPhoneNumberValid(String phoneNumber) {
         return Pattern.matches(PHONE_NUMBER_REGEX, phoneNumber);
