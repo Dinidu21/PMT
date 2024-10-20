@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 public class UserModel {
-    public static boolean saveUser(UserDTO userDTO) throws SQLException {
+    public static boolean saveUser(UserDTO userDTO) {
         String hashedPassword = BCrypt.hashpw(userDTO.getPassword(), BCrypt.gensalt(12));
         return Boolean.TRUE.equals(CrudUtil.execute("INSERT INTO users (username, password, email, phoneNumber) VALUES (?, ?, ?, ?)",
                 userDTO.getUsername(),
@@ -18,7 +18,6 @@ public class UserModel {
                 userDTO.getEmail(),
                 userDTO.getPhoneNumber()));
     }
-
     public static String verifyUser(String username, String password) {
         String query = "SELECT password FROM users WHERE username = ?";
         Connection connection = null;
@@ -60,7 +59,6 @@ public class UserModel {
             if (pst != null) try { pst.close(); } catch (SQLException ignored) {}
         }
     }
-
     public static boolean isEmailRegistered(String email) {
         String query = "SELECT COUNT(*) FROM users WHERE email = ?";
         Connection connection = null;
@@ -94,8 +92,7 @@ public class UserModel {
 
         return false;
     }
-
-    public static boolean updatePassword(String email, String password) throws SQLException {
+    public static boolean updatePassword(String email, String password) {
         String query = "UPDATE users SET password = ? WHERE email = ?";
         Connection connection = null;
         PreparedStatement pstm = null;
