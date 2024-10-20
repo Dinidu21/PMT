@@ -6,6 +6,8 @@ import com.dinidu.lk.pmt.regex.Regex;
 import com.dinidu.lk.pmt.utils.CustomAlert;
 import com.dinidu.lk.pmt.utils.CustomErrorAlert;
 import com.dinidu.lk.pmt.utils.FeedbackUtil;
+import com.dinidu.lk.pmt.utils.MailUtil;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -74,8 +76,24 @@ public class SignUpViewController extends BaseController {
             try {
                 boolean isSaved = UserModel.saveUser(userDTO);
                 if (isSaved) {
-                    CustomAlert.showAlert("CONFIRMATION", "User has been saved successfully!");
-                    clearContent();
+                    new Thread(() -> {
+                        try {
+                            //MailUtil.signUpConfirmation(usernameField.getText(), emailField.getText());
+
+                            Thread.sleep(1500);
+                            Platform.runLater(() -> {
+                                System.out.println("User has been saved successfully!");
+                                clearContent();
+                            });
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                            Platform.runLater(() -> {
+                                CustomErrorAlert.showAlert("ERROR", "An unexpected error occurred: ");
+                                System.out.println("An unexpected error occurred: " + e.getMessage());
+                                clearContent();
+                            });
+                        }
+                    }).start();
                 } else {
                     showError("Failed to save user! Please try again.");
                 }
