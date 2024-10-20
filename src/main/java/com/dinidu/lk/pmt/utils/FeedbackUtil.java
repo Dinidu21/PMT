@@ -11,11 +11,11 @@ public class FeedbackUtil {
         feedbackLabel.setText(message);
         feedbackLabel.setTextFill(color);
 
-        FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.9), feedbackLabel);
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(2.5), feedbackLabel);
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
 
-        FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), feedbackLabel);
+        FadeTransition fadeOut = new FadeTransition(Duration.seconds(2.5), feedbackLabel);
         fadeOut.setFromValue(1);
         fadeOut.setToValue(0);
 
