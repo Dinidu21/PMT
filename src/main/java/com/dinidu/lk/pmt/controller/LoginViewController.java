@@ -39,9 +39,7 @@ public class LoginViewController extends BaseController{
         } else if (!regex.containsSpecialChar(password)) {
             FeedbackUtil.showFeedback(feedbackpw, "Password must contain at least one special character.", Color.RED);
         } else {
-            UserModel userModel = new UserModel();
-            String result = userModel.verifyUser(username, password);
-
+            String result = UserModel.verifyUser(username, password);
             switch (result) {
                 case "SUCCESS":
                     CustomAlert.showAlert("Confirmation", "Login successful!");

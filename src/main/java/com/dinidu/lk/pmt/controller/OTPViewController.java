@@ -156,6 +156,7 @@ public class OTPViewController extends BaseController implements Initializable {
             currentStage.hide();
         } catch (Exception e) {
             CustomErrorAlert.showAlert("ERROR", "Error while loading password reset screen: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
 }

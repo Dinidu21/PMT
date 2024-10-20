@@ -71,9 +71,8 @@ public class SignUpViewController extends BaseController {
                     phoneField.getText()
             );
 
-            UserModel userModel = new UserModel();
             try {
-                boolean isSaved = userModel.saveUser(userDTO);
+                boolean isSaved = UserModel.saveUser(userDTO);
                 if (isSaved) {
                     CustomAlert.showAlert("CONFIRMATION", "User has been saved successfully!");
                     clearContent();
