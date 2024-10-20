@@ -10,38 +10,38 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 public class UserModel {
-    public boolean saveUser(UserDTO userDTO) {
-        try {
-            String hashedPassword = BCrypt.hashpw(userDTO.getPassword(), BCrypt.gensalt(12));
-            return CrudUtil.execute("INSERT INTO users (username, password, email, phoneNumber) VALUES (?, ?, ?, ?)",
-                    userDTO.getUsername(),
-                    hashedPassword,
-                    userDTO.getEmail(),
-                    userDTO.getPhoneNumber());
-        } catch (SQLException e) {
-            System.out.println("Error saving user: " + e.getMessage());
-            CustomErrorAlert.showAlert("ERROR","Error saving user: " + e.getMessage());
-        } finally {
-            // closeResources(connection, pst, null);
-        }
-        return false;
+    public static boolean saveUser(UserDTO userDTO) throws SQLException {
+        String hashedPassword = BCrypt.hashpw(userDTO.getPassword(), BCrypt.gensalt(12));
+        return Boolean.TRUE.equals(CrudUtil.execute("INSERT INTO users (username, password, email, phoneNumber) VALUES (?, ?, ?, ?)",
+                userDTO.getUsername(),
+                hashedPassword,
+                userDTO.getEmail(),
+                userDTO.getPhoneNumber()));
     }
 
-    public String verifyUser(String username, String password) {
+    public static String verifyUser(String username, String password) {
+        String query = "SELECT password FROM users WHERE username = ?";
         Connection connection = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
+
         try {
+            // Use the singleton connection instance
             connection = DBConnection.getInstance().getConnection();
 
-            String checkUsernameSQL = "SELECT password FROM users WHERE username = ?";
-            pst = connection.prepareStatement(checkUsernameSQL);
+            if (connection == null || connection.isClosed()) {
+                System.out.println("Database connection is closed.");
+                return "ERROR";
+            }
+
+            pst = connection.prepareStatement(query);
             pst.setString(1, username);
 
             rs = pst.executeQuery();
             if (rs.next()) {
                 String storedHashedPassword = rs.getString("password");
 
+                // Verifying the password
                 if (BCrypt.checkpw(password, storedHashedPassword)) {
                     return "SUCCESS";
                 } else {
@@ -52,42 +52,84 @@ public class UserModel {
             }
         } catch (SQLException e) {
             System.out.println("Error verifying user: " + e.getMessage());
-            CustomErrorAlert.showAlert("ERROR","Error verifying user: " + e.getMessage());
+            CustomErrorAlert.showAlert("ERROR", "Error verifying user: " + e.getMessage());
+            return "ERROR";
         } finally {
-            // closeResources(connection, pst, rs);
+            // Do not close the connection, just close statement and result set
+            if (rs != null) try { rs.close(); } catch (SQLException ignored) {}
+            if (pst != null) try { pst.close(); } catch (SQLException ignored) {}
         }
-        return "ERROR";
     }
-    public boolean isEmailRegistered(String email) {
+
+    public static boolean isEmailRegistered(String email) {
+        String query = "SELECT COUNT(*) FROM users WHERE email = ?";
         Connection connection = null;
         PreparedStatement pst = null;
         ResultSet rs = null;
-        try {
-            connection = DBConnection.getInstance().getConnection();
-            String sql = "SELECT COUNT(*) FROM users WHERE email = ?";
-            pst = connection.prepareStatement(sql);
-            pst.setString(1, email);
-            rs = pst.executeQuery();
 
+        try {
+            // Use the singleton connection instance
+            connection = DBConnection.getInstance().getConnection();
+
+            if (connection == null || connection.isClosed()) {
+                System.out.println("Database connection is closed.");
+                return false;
+            }
+
+            pst = connection.prepareStatement(query);
+            pst.setString(1, email);
+
+            rs = pst.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1) > 0; // Returns true if email is found
+                return rs.getInt(1) > 0; // Returns true if the email is found
             }
         } catch (SQLException e) {
             System.out.println("Error checking email registration: " + e.getMessage());
             CustomErrorAlert.showAlert("ERROR", "Error checking email registration: " + e.getMessage());
         } finally {
-            // closeResources(connection, pst, rs);
+            // Close statement and result set, but leave the connection open
+            if (rs != null) try { rs.close(); } catch (SQLException ignored) {}
+            if (pst != null) try { pst.close(); } catch (SQLException ignored) {}
         }
+
         return false;
     }
 
-    private void closeResources(Connection connection, PreparedStatement pst, ResultSet rs) {
+    public static boolean updatePassword(String email, String password) throws SQLException {
+        String query = "UPDATE users SET password = ? WHERE email = ?";
+        Connection connection = null;
+        PreparedStatement pstm = null;
+
         try {
-            if (rs != null) rs.close();
-            if (pst != null) pst.close();
-            if (connection != null) connection.close();
+            // Use the singleton connection instance
+            connection = DBConnection.getInstance().getConnection();
+
+            if (connection == null || connection.isClosed()) {
+                System.out.println("Database connection is closed.");
+                return false;
+            }
+
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
+            pstm = connection.prepareStatement(query);
+            pstm.setString(1, hashedPassword);
+            pstm.setString(2, email);
+
+            int affectedRows = pstm.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("Password updated successfully.");
+                return true;
+            } else {
+                System.out.println("Password update failed. No rows affected.");
+                CustomErrorAlert.showAlert("ERROR", "Password update failed. No rows affected.");
+                return false;
+            }
         } catch (SQLException e) {
-            System.out.println("Error closing resources: " + e.getMessage());
+            System.out.println("Error updating password: " + e.getMessage());
+            CustomErrorAlert.showAlert("ERROR", "Error updating password: " + e.getMessage());
+            return false;
+        } finally {
+            // Close the PreparedStatement, but leave the connection open
+            if (pstm != null) try { pstm.close(); } catch (SQLException ignored) {}
         }
     }
 }
