@@ -99,11 +99,13 @@ public class OTPViewController extends BaseController implements Initializable {
         String enteredOTP = otpField1.getText() + otpField2.getText() + otpField3.getText() +
                 otpField4.getText() + otpField5.getText() + otpField6.getText();
         if (enteredOTP.length() != 6) {
+            resetOtpFieldBorders();  // Reset borders when the OTP is incomplete
             CustomErrorAlert.showAlert("Error", "Please enter the complete OTP.");
             return;
         }
 
         if (Integer.parseInt(enteredOTP) == generatedOTP) {
+            resetOtpFieldBorders();  // Reset borders after successful OTP verification
             CustomAlert.showAlert("Confirmation", "OTP Verified! Password reset can proceed.");
             loadPasswordResetScreen();  // Call a method to load the next screen for password reset
         } else {
@@ -113,9 +115,31 @@ public class OTPViewController extends BaseController implements Initializable {
                 redirectToLogin();  // Redirect to the login page after max attempts
             } else {
                 CustomErrorAlert.showAlert("Error", "Invalid OTP. Please try again.");
+                setInvalidOtpFieldBorders();  // Change borders to red on invalid OTP
             }
         }
     }
+
+    // Method to set borders to red for invalid OTP
+    private void setInvalidOtpFieldBorders() {
+        otpField1.setStyle("-fx-border-color: red;");
+        otpField2.setStyle("-fx-border-color: red;");
+        otpField3.setStyle("-fx-border-color: red;");
+        otpField4.setStyle("-fx-border-color: red;");
+        otpField5.setStyle("-fx-border-color: red;");
+        otpField6.setStyle("-fx-border-color: red;");
+    }
+
+    // Method to reset the border styles to default
+    private void resetOtpFieldBorders() {
+        otpField1.setStyle("");
+        otpField2.setStyle("");
+        otpField3.setStyle("");
+        otpField4.setStyle("");
+        otpField5.setStyle("");
+        otpField6.setStyle("");
+    }
+
 
     private void redirectToLogin() {
         try {
