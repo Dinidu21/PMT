@@ -4,7 +4,6 @@ import com.dinidu.lk.pmt.model.UserModel;
 import com.dinidu.lk.pmt.regex.Regex;
 import com.dinidu.lk.pmt.utils.CustomErrorAlert;
 import com.dinidu.lk.pmt.utils.FeedbackUtil;
-import com.dinidu.lk.pmt.utils.MailUtil;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -19,8 +18,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import lombok.Getter;
+
 import java.security.SecureRandom;
 import java.util.Objects;
+@Getter
 
 public class ForgetPasswordController extends BaseController {
 
@@ -35,6 +37,7 @@ public class ForgetPasswordController extends BaseController {
     private ProgressIndicator loadingIndicator;
     @FXML
     private Label feedbackLabel;
+    public static String userEmail;
 
     @FXML
     public void initialize() {
@@ -64,7 +67,9 @@ public class ForgetPasswordController extends BaseController {
 
     @FXML
     private void handleSendResetEmail() {
-        String userEmail = fpid.getText();
+        userEmail = fpid.getText();
+        ResetPwViewController rst = new ResetPwViewController();
+        rst.setUserEmail(userEmail);
         Regex rg = new Regex();
 
         if (userEmail == null || userEmail.isEmpty()) {
@@ -77,8 +82,7 @@ public class ForgetPasswordController extends BaseController {
             return;
         }
 
-        UserModel userModel = new UserModel();
-        if (!userModel.isEmailRegistered(userEmail)) {
+        if (!UserModel.isEmailRegistered(userEmail)) {
             FeedbackUtil.showFeedback(feedbackLabel, "Email is not registered.", Color.RED);
             return;
         }
@@ -121,7 +125,7 @@ public class ForgetPasswordController extends BaseController {
         try {
             Stage otpStage = new Stage();
             otpStage.initStyle(StageStyle.TRANSPARENT);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/forgetpassword/otpEnter-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/forgetpassword/otp-view.fxml"));
             Parent root = loader.load();
             OTPViewController otpController = loader.getController();
             otpController.setGeneratedOTP(otp);

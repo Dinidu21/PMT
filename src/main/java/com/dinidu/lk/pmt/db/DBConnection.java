@@ -35,16 +35,10 @@ public class DBConnection {
     }
 
     public static DBConnection getInstance() {
-        if (dbConnection == null) {
-            dbConnection = new DBConnection();
-        }
-        return dbConnection;
+        return (null == dbConnection) ? dbConnection = new DBConnection() : dbConnection;
     }
 
     public Connection getConnection() {
-        if (connection == null) {
-            new Alert(AlertType.ERROR, "No active database connection. Please check your configuration.").showAndWait();
-        }
         return connection;
     }
 }
