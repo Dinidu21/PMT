@@ -3,6 +3,8 @@ package com.dinidu.lk.pmt.controller;
 import com.dinidu.lk.pmt.regex.Regex;
 import com.dinidu.lk.pmt.utils.CustomAlert;
 import com.dinidu.lk.pmt.utils.FeedbackUtil;
+import com.dinidu.lk.pmt.utils.MailUtil;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -54,7 +56,6 @@ public class ResetPwViewController extends BaseController {
             }
         });
     }
-
     // Handle the change password action
     private void handleChangePassword() throws SQLException {
         String newPassword = newPasswordField.getText();
@@ -77,9 +78,24 @@ public class ResetPwViewController extends BaseController {
 
         boolean updateSuccessful = UserModel.updatePassword(userEmail, newPassword);
         if (updateSuccessful) {
-            FeedbackUtil.showFeedback(passwordFeedback, "Password changed successfully!", Color.GREEN);
-            CustomAlert.showAlert("Success", "Your password has been updated.");
-            transitionToScene(pwPage, "/view/login-view.fxml");
+            // Send email
+            new Thread(() -> {
+                try {
+                    //MailUtil.notifyPasswordChange(userEmail);
+
+                    // Wait for 2 seconds
+                    Thread.sleep(2000);
+
+                    // Show success message
+                    Platform.runLater(() -> {
+                        FeedbackUtil.showFeedback(passwordFeedback, "Password changed successfully!", Color.GREEN);
+                        CustomAlert.showAlert("Success", "Your password has been updated.");
+                        transitionToScene(pwPage, "/view/login-view.fxml");
+                    });
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }).start();
         } else {
             FeedbackUtil.showFeedback(passwordFeedback, "Failed to change password. Please try again.", Color.RED);
         }
