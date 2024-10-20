@@ -24,7 +24,17 @@ public class MailUtil {
                     CustomErrorAlert.showAlert("ERROR","Error: User email is null or empty."));
             return;
         }
-        sendMail(userEmail, 0);
+        sendMail(userEmail, 0,"");
+    }
+
+
+    public static void signUpConfirmation(String userName,String userEmail) {
+        if (userEmail == null || userEmail.isEmpty()) {
+            Platform.runLater(() ->
+                    CustomErrorAlert.showAlert("ERROR","Error: User email is null or empty."));
+            return;
+        }
+        sendMail(userEmail, 0,userName);
     }
 
     private static void loadEmailProperties() {
@@ -49,10 +59,10 @@ public class MailUtil {
         }
     }
 
-    public static void sendMail(String recipient, int otp) {
+    public static void sendMail(String recipient, int otp, String userName) {
         if (myAccountEmail == null || myAccountEmail.isEmpty() || appPassword == null || appPassword.isEmpty()) {
             Platform.runLater(() ->
-                    CustomErrorAlert.showAlert("ERROR","Email credentials are not configured properly."));
+                    CustomErrorAlert.showAlert("ERROR", "Email credentials are not configured properly."));
             return;
         }
 
@@ -72,33 +82,34 @@ public class MailUtil {
                 }
             });
 
-            Message message = prepareMessage(session, myAccountEmail, recipient, otp);
+            Message message = prepareMessage(session, myAccountEmail, recipient, otp, userName);
             if (message != null) {
                 Transport.send(message);
                 System.out.println("Email sent successfully");
                 Platform.runLater(() ->
-                        CustomAlert.showAlert("CONFIRMATION","Email (OTP) sent successfully"));
+                        CustomAlert.showAlert("CONFIRMATION", "Email sent successfully"));
             } else {
                 throw new MessagingException("Failed to create email message.");
             }
         } catch (Exception ex) {
             Platform.runLater(() ->
-                    CustomErrorAlert.showAlert("ERROR","Failed to send email: " + ex.getMessage()));
+                    CustomErrorAlert.showAlert("ERROR", "Failed to send email: " + ex.getMessage()));
             ex.printStackTrace();
         }
     }
 
-
-    private static Message prepareMessage(Session session, String myAccountEmail, String recipient, int otp) {
+    private static Message prepareMessage(Session session, String myAccountEmail, String recipient, int otp, String userName) {
         try {
             if (recipient == null || recipient.isEmpty()) {
                 throw new MessagingException("Recipient email is null or empty.");
             }
+
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(myAccountEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
 
             if (otp != 0) {
+                // Sending OTP email
                 message.setSubject("Your OTP for Project Nexues Access");
                 String emailBody = "Dear Admin,\n\n" +
                         "Thank you for using Project Nexues, your dedicated project management tool.\n\n" +
@@ -113,9 +124,33 @@ public class MailUtil {
                         "Lead Software Engineer\n" +
                         "Project Nexues Team";
                 message.setText(emailBody);
+            } else if (userName != null) {
+                // Sending signup confirmation email
+                message.setSubject("Welcome to Project Nexues, " + userName + "!");
+                String emailBody = "<html>" +
+                        "<body style='font-family: Arial, sans-serif;'>" +
+                        "<p>Dear <strong>" + userName + "</strong>,</p>" +
+                        "<p>Welcome to <strong>Project Nexues</strong>!</p>" +
+                        "<p>We are pleased to inform you that your account has been created successfully. " +
+                        "Project Nexues is designed to enhance your project management experience, and we are excited to have you on board.</p>" +
+                        "<p>Here are a few things you can do to get started:</p>" +
+                        "<ul>" +
+                        "<li>Log in to your account using your credentials.</li>" +
+                        "<li>Explore our comprehensive features tailored for effective project management.</li>" +
+                        "<li>Visit our help center for tutorials and support.</li>" +
+                        "</ul>" +
+                        "<p>If you have any questions or need assistance, please do not hesitate to reach out to our support team.</p>" +
+                        "<p>Best regards,</p>" +
+                        "<p><strong>Dinidu Sachintha</strong><br>" +
+                        "Lead Software Engineer<br>" +
+                        "Project Nexues Team</p>" +
+                        "</body>" +
+                        "</html>";
+                message.setContent(emailBody, "text/html");
             } else {
+                // Sending password change notification
                 String currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-                message.setSubject(" IMPORTANT ! : Password Changed for Project Nexues");
+                message.setSubject("IMPORTANT: Password Changed for Project Nexues");
                 String emailBodyPw = "<html>" +
                         "<body>" +
                         "<p>Dear Admin,</p>" +
@@ -132,7 +167,6 @@ public class MailUtil {
                         "Project Nexues Team</p>" +
                         "</body>" +
                         "</html>";
-
                 message.setContent(emailBodyPw, "text/html");
             }
             return message;
@@ -143,5 +177,4 @@ public class MailUtil {
         }
         return null;
     }
-
 }
