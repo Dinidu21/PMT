@@ -2,6 +2,7 @@
 .otp-field {
     -fx-font-size: 18px;
     -fx-text-alignment: center;
+     -fx-font-family: 'Poppins';
     -fx-alignment: center;
     -fx-pref-height: 40px;
     -fx-border-color: #ddd;
@@ -16,6 +17,7 @@
 /* Style for the submit button */
 .submit-button {
     -fx-background-color: #ff318c;
+     -fx-font-family: 'Poppins';
     -fx-text-fill: white;
     -fx-font-size: 16px;
     -fx-background-radius: 20px;
@@ -25,4 +27,12 @@
 
 .submit-button:hover {
     -fx-background-color: #e02d7a;
+}
+
+/* Style for the back button */
+.backToLogin {
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 16px;
+    -fx-text-fill: #007BFF;
+    -fx-cursor: hand;
 }

@@ -67,3 +67,10 @@
 .submit-button:pressed {
     -fx-background-color: #c02d6b;
 }
+
+.backToLogin {
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 16px;
+    -fx-text-fill: #007BFF;
+    -fx-cursor: hand;
+}

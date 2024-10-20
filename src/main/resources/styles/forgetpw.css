@@ -34,6 +34,7 @@ body {
 /* Label Styles */
 .label {
     -fx-text-fill: #333; /* Dark text color for labels */
+    -fx-font-family: 'Poppins';
 }
 
 /* Button Styles */

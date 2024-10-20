@@ -31,7 +31,7 @@
         <!-- Reset Button -->
         <Button fx:id="resetPasswordBtn" prefHeight="44.0" prefWidth="193.0" styleClass="submit-button" text="Reset Password" />
     </VBox>
-   <Label layoutX="20.0" layoutY="23.0" onMouseClicked="#backtoLogin" prefHeight="20.0" prefWidth="42.0" text="Back">
+   <Label layoutX="20.0" layoutY="23.0" onMouseClicked="#backtoLogin" prefHeight="20.0" prefWidth="42.0" styleClass="backToLogin" text="Back">
       <font>
          <Font size="18.0" />
       </font>

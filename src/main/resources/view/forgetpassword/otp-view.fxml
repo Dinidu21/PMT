@@ -36,7 +36,7 @@
 
     <!-- Submit Button -->
     <Button fx:id="submitBtn" layoutX="150.0" layoutY="250.0" mnemonicParsing="false" onAction="#handleSubmitOTP" prefWidth="150.0" styleClass="submit-button" text="Submit" />
-   <Label layoutX="30.0" layoutY="342.0" onMouseClicked="#backtoLogin" prefHeight="18.0" prefWidth="40.0" text="Back">
+   <Label layoutX="30.0" layoutY="342.0" onMouseClicked="#backtoLogin" prefHeight="18.0" prefWidth="40.0" styleClass="backToLogin" text="Back">
       <font>
          <Font size="18.0" />
       </font>

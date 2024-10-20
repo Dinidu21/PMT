@@ -1,12 +1,14 @@
 .header-label {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
+    -fx-font-family: 'Poppins';
     -fx-text-fill: #333;
 }
 
 .button {
     -fx-background-color: #ff318c;
     -fx-text-fill: white;
+    -fx-font-family: 'Poppins';
     -fx-font-size: 14px;
     -fx-padding: 10px 20px;
     -fx-background-radius: 25;
@@ -21,6 +23,8 @@
 }
 
 .text-field, .password-field {
+    -fx-font-family: 'Poppins';
+    -fx-font-size: 14px;
     -fx-background-color: #ffffff;
     -fx-border-color: #dddddd;
     -fx-border-radius: 25;

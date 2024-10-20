@@ -8,6 +8,7 @@
 
 /* Header Label Style */
 .header-label {
+    -fx-font-family: 'Poppins';
     -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-text-fill: #333;
@@ -17,6 +18,7 @@
 
 /* Input Field Styles */
 .input-field {
+    -fx-font-family: 'Poppins';
     -fx-background-color: #ffffff; /* Light background for input fields */
     -fx-border-color: #ddd; /* Light border */
     -fx-border-radius: 25;
@@ -28,6 +30,7 @@
 
 /* Button Styles */
 .register-button {
+    -fx-font-family: 'Poppins';
     -fx-background-color: #ff318c; /* Pink background */
     -fx-text-fill: white; /* White text */
     -fx-font-size: 16px;
@@ -38,6 +41,7 @@
 
 .cancel-button {
     -fx-background-color: #ccc; /* Light gray background */
+    -fx-font-family: 'Poppins';
     -fx-text-fill: #333; /* Dark text */
     -fx-font-size: 16px;
     -fx-padding: 10px 20px;
