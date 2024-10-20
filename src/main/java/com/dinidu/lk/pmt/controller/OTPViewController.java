@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -159,4 +160,6 @@ public class OTPViewController extends BaseController implements Initializable {
             System.out.println(e.getMessage());
         }
     }
+
+    public void backtoLogin(MouseEvent mouseEvent) { transitionToScene(otpPg, "/view/login-view.fxml");}
 }

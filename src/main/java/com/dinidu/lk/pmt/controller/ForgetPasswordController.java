@@ -145,6 +145,8 @@ public class ForgetPasswordController extends BaseController {
             otpStage.getIcons().add(new javafx.scene.image.Image(Objects.requireNonNull(getClass().getResourceAsStream("/asserts/icons/PN.png"))));
             otpStage.centerOnScreen();
             otpStage.show();
+            otpStage.resizableProperty().setValue(Boolean.FALSE);
+            otpStage.centerOnScreen();
             Stage currentStage = (Stage) forgetpg.getScene().getWindow();
             currentStage.hide();
 

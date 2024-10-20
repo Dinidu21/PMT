@@ -8,11 +8,8 @@
 <?import javafx.scene.text.Font?>
 
 <!-- Main OTP Container -->
-<AnchorPane fx:id="otpPg" layoutX="197.0" layoutY="86.0" prefHeight="400.0" prefWidth="450.0"
-            stylesheets="@../../styles/otppw.css"
-            xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.dinidu.lk.pmt.controller.OTPViewController"
-            style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 400, 0.5, 0, 5);">
+
+<AnchorPane fx:id="otpPg" layoutX="197.0" layoutY="86.0" prefHeight="400.0" prefWidth="450.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 400, 0.5, 0, 5);" stylesheets="@../../styles/otppw.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dinidu.lk.pmt.controller.OTPViewController">
 
     <!-- Title -->
     <Label layoutX="30.0" layoutY="30.0" text="Verify the Authorization Code">
@@ -20,30 +17,29 @@
             <Font name="Poppins Black" size="24.0" />
         </font>
     </Label>
-
-<!--    <Label fx:id="sendotpEmail" layoutX="30.0" layoutY="75.0" text="F">-->
-<!--        <font>-->
-<!--            <Font size="14.0" />-->
-<!--        </font>-->
-<!--    </Label>-->
-
+    
     <!-- OTP Fields -->
     <HBox layoutX="60.0" layoutY="117.0" spacing="15.0">
-        <TextField fx:id="otpField1" prefWidth="40.0" styleClass="otp-field"/>
-        <TextField fx:id="otpField2" prefWidth="40.0" styleClass="otp-field"/>
-        <TextField fx:id="otpField3" prefWidth="40.0" styleClass="otp-field"/>
-        <TextField fx:id="otpField4" prefWidth="40.0" styleClass="otp-field"/>
-        <TextField fx:id="otpField5" prefWidth="40.0" styleClass="otp-field"/>
-        <TextField fx:id="otpField6" prefWidth="40.0" styleClass="otp-field"/>
+        <TextField fx:id="otpField1" prefWidth="40.0" styleClass="otp-field" />
+        <TextField fx:id="otpField2" prefWidth="40.0" styleClass="otp-field" />
+        <TextField fx:id="otpField3" prefWidth="40.0" styleClass="otp-field" />
+        <TextField fx:id="otpField4" prefWidth="40.0" styleClass="otp-field" />
+        <TextField fx:id="otpField5" prefWidth="40.0" styleClass="otp-field" />
+        <TextField fx:id="otpField6" prefWidth="40.0" styleClass="otp-field" />
     </HBox>
 
     <Label layoutX="30.0" layoutY="200.0" text="Resend Authorization Code in 0 sec" textFill="#007BFF">
         <font>
-            <Font name="Poppins Regular" size="12.0"/>
+            <Font name="Poppins Regular" size="12.0" />
         </font>
     </Label>
 
     <!-- Submit Button -->
-    <Button fx:id="submitBtn" layoutX="150.0" layoutY="250.0" mnemonicParsing="false" prefWidth="150.0" styleClass="submit-button" text="Submit" onAction="#handleSubmitOTP"/>
+    <Button fx:id="submitBtn" layoutX="150.0" layoutY="250.0" mnemonicParsing="false" onAction="#handleSubmitOTP" prefWidth="150.0" styleClass="submit-button" text="Submit" />
+   <Label layoutX="30.0" layoutY="342.0" onMouseClicked="#backtoLogin" prefHeight="18.0" prefWidth="40.0" text="Back">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Label>
 
 </AnchorPane>

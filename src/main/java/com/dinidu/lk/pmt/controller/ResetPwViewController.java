@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import com.dinidu.lk.pmt.model.UserModel;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
@@ -117,4 +118,6 @@ public class ResetPwViewController extends BaseController {
             FeedbackUtil.showFeedback(passwordFeedback, "Passwords match!", Color.GREEN);
         }
     }
+
+    public void backtoLogin(MouseEvent mouseEvent) {transitionToScene(pwPage, "/view/login-view.fxml");}
 }

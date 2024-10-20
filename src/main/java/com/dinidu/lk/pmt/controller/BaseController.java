@@ -21,6 +21,8 @@ public abstract class BaseController {
                 Scene newScene = new Scene(newRoot);
                 Stage currentStage = (Stage) currentPane.getScene().getWindow();
                 currentStage.setScene(newScene);
+                currentStage.centerOnScreen();
+
 
                 newRoot.setOpacity(0);
                 FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), newRoot);
