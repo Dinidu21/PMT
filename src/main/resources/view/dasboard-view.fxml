@@ -35,11 +35,11 @@
             <!-- Navigation Buttons -->
             <ButtonBar layoutX="327.0" layoutY="31.0" prefHeight="50.0" prefWidth="954.0">
                <buttons>
-                  <Button onAction="#clickOnProjects" styleClass="nav-button" text="Projects" />
-                  <Button onAction="#clickOnTimesheets" styleClass="nav-button" text="Timesheets" />
-                  <Button onAction="#clickOnTask" styleClass="nav-button" text="Tasks" />
-                  <Button onAction="#clickOnReports" styleClass="nav-button" text="Reports" />
-                  <Button onAction="#clickOnDashboard" styleClass="nav-button" text="Dashboards" />
+                  <Button fx:id="projectsButton" onAction="#clickOnProjects" styleClass="nav-button" text="Projects" />
+                  <Button fx:id="timesheetsButton" onAction="#clickOnTimesheets" styleClass="nav-button" text="Timesheets" />
+                  <Button fx:id="taskButton" onAction="#clickOnTask" styleClass="nav-button" text="Tasks" />
+                  <Button fx:id="reportsButton" onAction="#clickOnReports" styleClass="nav-button" text="Reports" />
+                  <Button fx:id="dashboardButton" onAction="#clickOnDashboard" styleClass="nav-button" text="Dashboards" />
                </buttons>
             </ButtonBar>
             <!-- Profile Icon -->
