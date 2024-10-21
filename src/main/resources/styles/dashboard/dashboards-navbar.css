@@ -1,0 +1,52 @@
+.card-container {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 5, 0.5, 0, 5);
+}
+
+/* Combo Box */
+.combo-box {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-font-family: 'Poppins';
+    -fx-font-weight: bold;
+    -fx-font-size: 28px; /* Set font size for ComboBox */
+    -fx-text-fill: #2f6cd0; /* Set text color */
+    -fx-arrow-color: #2f6cd0; /* Set dropdown arrow color */
+}
+
+/* Combo Box Drop Down */
+.combo-box .list-cell {
+    -fx-font-family: 'Poppins';
+    -fx-text-fill: #2f6cd0; /* Set dropdown text color */
+}
+
+/* Combo Box hover */
+.combo-box .list-cell:hover {
+    -fx-background-color: #5f87c7; /* Set hover background color */
+}
+
+/* Customizing the dropdown arrow */
+.combo-box .arrow {
+    -fx-background-color: #2f6cd0; /* Set dropdown arrow background color */
+}
+
+/* Active (selected) cell in the dropdown */
+.combo-box .list-cell:selected {
+    -fx-background-color: white; /* Set the active cell background to white */
+    -fx-text-fill: #2f6cd0; /* Set the active cell text color */
+}
+
+/* Style for the drop-down pop-up */
+.combo-box-popup {
+    -fx-background-radius: 15; /* Set background radius of the dropdown */
+    -fx-background-color: white; /* Set the background color */
+    -fx-border-color: lightgray; /* Set border color */
+}
+
+/* ListView inside ComboBox dropdown */
+.combo-box .list-view {
+    -fx-background-radius: 15; /* Set background radius */
+    -fx-border-radius: 15; /* Set border radius */
+}
