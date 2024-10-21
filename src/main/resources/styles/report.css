@@ -2,7 +2,7 @@
     -fx-background-color: white;
     -fx-background-radius: 15;
     -fx-padding: 20;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 100, 0.5, 0, 5);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 50, 0.5, 0, 5);
 }
 /*Main label*/
 .main-label {

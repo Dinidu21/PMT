@@ -13,7 +13,7 @@
       <!-- Main content wrapper (initially aligned left) -->
       <AnchorPane fx:id="mainContentPane" layoutX="20.0" layoutY="47.0" prefHeight="641.0" prefWidth="1480.0">
          <children>
-            <ImageView fx:id="backButton" fitHeight="33.0" fitWidth="28.0" layoutX="14.0" layoutY="8.0" onMouseClicked="#toggleCardContainer" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="backButton" fitHeight="33.0" fitWidth="28.0" layoutX="14.0" layoutY="8.0" onMouseClicked="#toggleCardContainer" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                <image>
                   <Image url="@../../asserts/icons/back.png" />
                </image>
