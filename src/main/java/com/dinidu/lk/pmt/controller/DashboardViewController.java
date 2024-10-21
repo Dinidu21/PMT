@@ -23,31 +23,39 @@ public class DashboardViewController extends BaseController{
     }
 
     public void clickOnTask(ActionEvent actionEvent) {
-
+        hideCardContainers();
+        navigateTo("/view/task-view.fxml");
     }
 
     public void clickOnDashboard(ActionEvent actionEvent) {
-
+        hideCardContainers();
+        navigateTo("/view/dashboard-expand-view.fxml");
     }
 
     public void myProfile(MouseEvent mouseEvent) {
-
+        hideCardContainers();
+        navigateTo("/view/profile-view.fxml");
     }
 
     public void clickOnProjects(ActionEvent actionEvent) {
-
+        hideCardContainers();
+        navigateTo("/view/project-view.fxml");
     }
 
     public void clickOnTimesheets(ActionEvent actionEvent) {
+        hideCardContainers();
+        navigateTo("/view/timesheet-view.fxml");
 
     }
 
     public void notifyClick(MouseEvent mouseEvent) {
-
+        hideCardContainers();
+        navigateTo("/view/notify-view.fxml");
     }
 
     public void settingsClick(MouseEvent mouseEvent) {
-
+        hideCardContainers();
+        navigateTo("/view/settings-view.fxml");
     }
 
     public void navigateTo(String fxmlPath) {
