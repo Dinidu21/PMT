@@ -5,7 +5,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="createRp" prefHeight="700.0" prefWidth="1522.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dinidu.lk.pmt.controller.ReportViewController">
+<AnchorPane fx:id="createRp" prefHeight="700.0" prefWidth="1522.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dinidu.lk.pmt.controller.dashboard.ReportViewController">
    <children>
       <AnchorPane layoutX="20.0" layoutY="47.0" prefHeight="254.0" prefWidth="334.0" styleClass="card-container" stylesheets="@../../styles/report.css" />
       <ImageView fitHeight="33.0" fitWidth="28.0" layoutX="372.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">

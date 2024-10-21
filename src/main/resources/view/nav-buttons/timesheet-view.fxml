@@ -8,7 +8,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.dinidu.lk.pmt.controller.TimesheetViewController"
+            fx:controller="com.dinidu.lk.pmt.controller.dashboard.TimesheetViewController"
             prefHeight="700.0" prefWidth="1522.0">
 
 </AnchorPane>

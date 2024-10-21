@@ -1,4 +1,4 @@
-package com.dinidu.lk.pmt.controller;
+package com.dinidu.lk.pmt.controller.dashboard;
 
 import javafx.scene.layout.AnchorPane;
 

@@ -8,6 +8,6 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.dinidu.lk.pmt.controller.ProjectViewController"
+            fx:controller="com.dinidu.lk.pmt.controller.dashboard.ProjectViewController"
             prefHeight="700.0" prefWidth="1522.0">
 </AnchorPane>
