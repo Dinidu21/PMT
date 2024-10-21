@@ -27,7 +27,7 @@
                </image>
             </ImageView>
             <!-- Notifications Icon -->
-            <ImageView fx:id="bellClick" fitHeight="26.0" fitWidth="32.0" layoutX="1361.0" layoutY="43.0" onMouseClicked="#notifClick" pickOnBounds="true" preserveRatio="true" styleClass="icon-hover">
+            <ImageView fx:id="bellClick" fitHeight="26.0" fitWidth="32.0" layoutX="1361.0" layoutY="43.0" onMouseClicked="#notifyClick" pickOnBounds="true" preserveRatio="true" styleClass="icon-hover">
                <image>
                   <Image url="@../asserts/icons/bell.png" />
                </image>
