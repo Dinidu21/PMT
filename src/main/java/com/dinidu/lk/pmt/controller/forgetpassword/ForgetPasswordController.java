@@ -1,5 +1,6 @@
-package com.dinidu.lk.pmt.controller;
+package com.dinidu.lk.pmt.controller.forgetpassword;
 
+import com.dinidu.lk.pmt.controller.BaseController;
 import com.dinidu.lk.pmt.model.UserModel;
 import com.dinidu.lk.pmt.regex.Regex;
 import com.dinidu.lk.pmt.utils.CustomErrorAlert;

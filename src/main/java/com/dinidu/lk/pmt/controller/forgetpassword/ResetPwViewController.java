@@ -1,9 +1,9 @@
-package com.dinidu.lk.pmt.controller;
+package com.dinidu.lk.pmt.controller.forgetpassword;
 
+import com.dinidu.lk.pmt.controller.BaseController;
 import com.dinidu.lk.pmt.regex.Regex;
 import com.dinidu.lk.pmt.utils.CustomAlert;
 import com.dinidu.lk.pmt.utils.FeedbackUtil;
-import com.dinidu.lk.pmt.utils.MailUtil;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

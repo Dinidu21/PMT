@@ -1,5 +1,6 @@
-package com.dinidu.lk.pmt.controller;
+package com.dinidu.lk.pmt.controller.forgetpassword;
 
+import com.dinidu.lk.pmt.controller.BaseController;
 import com.dinidu.lk.pmt.utils.CustomAlert;
 import com.dinidu.lk.pmt.utils.CustomErrorAlert;
 import javafx.event.ActionEvent;
@@ -8,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
