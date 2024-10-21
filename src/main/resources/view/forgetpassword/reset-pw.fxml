@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pwPage" layoutX="197.0" layoutY="86.0" prefHeight="382.0" prefWidth="359.0" styleClass="container-pane" stylesheets="@../../styles/resetpw.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dinidu.lk.pmt.controller.forgetpassword.ResetPwViewController">
+<AnchorPane fx:id="pwPage" layoutX="197.0" layoutY="86.0" prefHeight="382.0" prefWidth="359.0" styleClass="container-pane" stylesheets="@../../styles/forgetpassword/resetpw.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dinidu.lk.pmt.controller.forgetpassword.ResetPwViewController">
 
     <VBox alignment="CENTER" layoutX="20" layoutY="50" prefHeight="287.0" prefWidth="299.0" spacing="15">
         <!-- Title -->

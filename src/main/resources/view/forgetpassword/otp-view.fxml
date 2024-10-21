@@ -9,7 +9,7 @@
 
 <!-- Main OTP Container -->
 
-<AnchorPane fx:id="otpPg" layoutX="197.0" layoutY="86.0" prefHeight="400.0" prefWidth="450.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 400, 0.5, 0, 5);" stylesheets="@../../styles/otppw.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dinidu.lk.pmt.controller.forgetpassword.OTPViewController">
+<AnchorPane fx:id="otpPg" layoutX="197.0" layoutY="86.0" prefHeight="400.0" prefWidth="450.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 400, 0.5, 0, 5);" stylesheets="@../../styles/forgetpassword/otppw.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dinidu.lk.pmt.controller.forgetpassword.OTPViewController">
 
     <!-- Title -->
     <Label layoutX="30.0" layoutY="30.0" text="Verify the Authorization Code">
