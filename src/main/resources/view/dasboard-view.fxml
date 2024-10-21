@@ -45,7 +45,7 @@
             <!-- Profile Icon -->
             <ImageView fx:id="profileClick" fitHeight="71.0" fitWidth="51.0" layoutX="1470.0" layoutY="24.0" onMouseClicked="#myProfile" pickOnBounds="true" preserveRatio="true" styleClass="icon-hover">
                <image>
-                  <Image url="@../asserts/icons/userProfile.jpg" />
+                  <Image url="@../asserts/images/user.jpg" />
                </image>
             </ImageView>
          </children>
