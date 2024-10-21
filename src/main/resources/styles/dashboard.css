@@ -21,17 +21,21 @@
 .nav-button:active {
     -fx-background-color: #2f6cd0;
     -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 40, 0.5, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 60, 0.5, 0, 2);
+}
+
+/*Button pressed*/
+.nav-button:pressed {
+    -fx-background-color: white;
+    -fx-text-fill: #2f6cd0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 80, 0.5, 0, 2);
 }
 
 /* Label Styling */
-.label {
-
-}
-
 .nav-label {
--fx-font-family: 'Poppins Bold';
+-fx-font-family: 'Poppins';
     -fx-font-size: 30px;
+    -fx-font-weight: bold;
     -fx-text-fill: black;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 0, 2);
 }
